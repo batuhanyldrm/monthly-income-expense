@@ -5,6 +5,7 @@ type Salary struct {
 	Salary    string `json:"salary" bson:"salary"`
 	Debit     string `json:"debit" bson:"debit"`
 	MoneyGain string `json:"moneyGain" bson:"moneyGain"`
+	Users     []User `json:"users" bson:"users"`
 }
 
 type User struct {
