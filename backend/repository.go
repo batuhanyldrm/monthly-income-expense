@@ -27,3 +27,14 @@ func NewRepository() *Repository {
 
 	return &Repository{client}
 }
+
+func GetCleanTestRepository() *Repository {
+
+	repository := NewRepository()
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	stockDB := repository.client.Database("Salary")
+	stockDB.Drop(ctx)
+
+	return repository
+}
