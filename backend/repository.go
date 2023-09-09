@@ -6,6 +6,7 @@ import (
 	"monthly-income-expense/models"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -42,6 +43,30 @@ func (repository *Repository) CreateSalary(salary models.Salary) error {
 	}
 
 	return nil
+}
+
+func (repository *Repository) GetSalaries() ([]models.Salary, error) {
+	collection := repository.client.Database("salary").Collection("salary")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	cur, err := collection.Find(ctx, bson.M{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	salaries := []models.Salary{}
+	for cur.Next(ctx) {
+		var salary models.Salary
+		err := cur.Decode(&salary) //& koy
+		if err != nil {
+			log.Fatal(err)
+		}
+		salaries = append(salaries, salary)
+	}
+
+	return salaries, nil
 }
 
 func GetCleanTestRepository() *Repository {

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"monthly-income-expense/models"
 	"strings"
 
 	"github.com/google/uuid"
@@ -14,6 +15,17 @@ func NewService(repository *Repository) Service {
 	return Service{
 		repository: repository,
 	}
+}
+
+func (service *Service) GetSalaries() ([]models.Salary, error) {
+
+	salaries, err := service.repository.GetSalaries()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return salaries, nil
 }
 
 func GenerateUUID(length int) string {

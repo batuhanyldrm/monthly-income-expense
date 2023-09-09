@@ -33,5 +33,7 @@ func SetupApp(api *Api) *fiber.App {
 		AllowOrigins:     []string{"Origin, Content-Type, Accept"},
 	}))
 
+	app.Get("/salaries", api.GetSalariesHandler)
+
 	return app
 }
