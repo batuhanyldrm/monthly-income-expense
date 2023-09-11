@@ -124,7 +124,7 @@ func TestGetSalary(t *testing.T) {
 
 		Convey("When the get request sent", func() {
 			app := SetupApp(&api)
-			req, _ := http.NewRequest(http.MethodGet, "/", nil)
+			req, _ := http.NewRequest(http.MethodGet, "/salary/"+salary.ID, nil)
 			resp, err := app.Test(req, 3000)
 
 			So(err, ShouldBeNil)

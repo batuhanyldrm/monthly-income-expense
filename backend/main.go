@@ -34,6 +34,7 @@ func SetupApp(api *Api) *fiber.App {
 	}))
 
 	app.Get("/salaries", api.GetSalariesHandler)
+	app.Get("/salary/:id", api.GetSalaryHandler)
 
 	return app
 }

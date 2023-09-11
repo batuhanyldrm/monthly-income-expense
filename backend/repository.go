@@ -69,6 +69,20 @@ func (repository *Repository) GetSalaries() ([]models.Salary, error) {
 	return salaries, nil
 }
 
+func (repository *Repository) GetSalary(ID string) (models.Salary, error) {
+	collection := repository.client.Database("salary").Collection("salary")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	salary := models.Salary{}
+	err := collection.FindOne(ctx, bson.M{"id": ID}).Decode(&salary)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return salary, nil
+}
+
 func GetCleanTestRepository() *Repository {
 
 	repository := NewRepository()

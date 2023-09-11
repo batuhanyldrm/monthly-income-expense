@@ -28,6 +28,16 @@ func (service *Service) GetSalaries() ([]models.Salary, error) {
 	return salaries, nil
 }
 
+func (service *Service) GetSalary(ID string) (models.Salary, error) {
+	salary, err := service.repository.GetSalary(ID)
+
+	if err != nil {
+		return models.Salary{}, nil
+	}
+
+	return salary, nil
+}
+
 func GenerateUUID(length int) string {
 	uuid := uuid.New().String()
 	uuid = strings.ReplaceAll(uuid, "-", "")
