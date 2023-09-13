@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"io"
 	"monthly-income-expense/models"
 	"net/http"
+	"strconv"
 	"testing"
 	"time"
 
@@ -152,6 +154,55 @@ func TestGetSalary(t *testing.T) {
 				So(actualResult.Users[0].CreatedAt, ShouldEqual, salary.Users[0].CreatedAt)
 				So(actualResult.Users[0].UpdatedAt, ShouldEqual, salary.Users[0].UpdatedAt)
 
+			})
+		})
+	})
+}
+
+func TestAddSalary(t *testing.T) {
+	Convey("Add stock", t, func() {
+		repository := GetCleanTestRepository()
+		service := NewService(repository)
+		api := NewApi(&service)
+
+		stock := models.Salary{
+			Salary:    "1222",
+			Debit:     "122",
+			MoneyGain: "23",
+			Users: []models.User{models.User{
+				Name:      "batu",
+				Email:     "aa@gmail.com",
+				CreatedAt: time.Now().UTC().Round(time.Second),
+				UpdatedAt: time.Now().UTC().Round(time.Second),
+			}},
+			CreatedAt: time.Now().UTC().Round(time.Second),
+			UpdatedAt: time.Now().UTC().Round(time.Second),
+		}
+
+		Convey("When the post request sent", func() {
+
+			reqBody, err := json.Marshal(stock)
+
+			req, _ := http.NewRequest(http.MethodPost, "/", bytes.NewReader(reqBody))
+			req.Header.Add("Content-Type", "application/json")
+			req.Header.Set("Content-Length", strconv.Itoa(len(reqBody)))
+
+			app := SetupApp(&api)
+			resp, err := app.Test(req, 30000)
+			So(err, ShouldBeNil)
+
+			Convey("Then status code should be 201", func() {
+				So(resp.StatusCode, ShouldEqual, fiber.StatusCreated)
+			})
+
+			Convey("Then added stock should return", func() {
+				actualResult, err := repository.GetSalary(stock.ID)
+
+				So(err, ShouldBeNil)
+				So(actualResult, ShouldNotBeNil)
+				So(actualResult.Salary, ShouldEqual, stock.Salary)
+				So(actualResult.Debit, ShouldEqual, stock.Debit)
+				So(actualResult.MoneyGain, ShouldEqual, stock.MoneyGain)
 			})
 		})
 	})
