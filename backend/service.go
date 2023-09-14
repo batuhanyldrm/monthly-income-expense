@@ -3,6 +3,7 @@ package main
 import (
 	"monthly-income-expense/models"
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -36,6 +37,28 @@ func (service *Service) GetSalary(ID string) (models.Salary, error) {
 	}
 
 	return salary, nil
+}
+
+func (service *Service) PostSalary(salaryDTO models.SalaryDTO) *models.Salary {
+	salary := models.Salary{}
+	salary.ID = GenerateUUID(8)
+	salary.Debit = salaryDTO.Debit
+	salary.MoneyGain = salaryDTO.MoneyGain
+	salary.Salary = salaryDTO.Salary
+	salary.CreatedAt = time.Now().UTC().Round(time.Second)
+	salary.UpdatedAt = time.Now().UTC().Round(time.Second)
+	/* salary.Users[0].ID = GenerateUUID(8)
+	salary.Users[0].Email = salaryDTO.Users[0].Email
+	salary.Users[0].Name = salaryDTO.Users[0].Email
+	salary.Users[0].CreatedAt = time.Now().UTC().Round(time.Second)
+	salary.Users[0].UpdatedAt = time.Now().UTC().Round(time.Second) */
+
+	err := service.repository.PostSalary(salary)
+	if err != nil {
+		return nil
+	}
+
+	return &salary
 }
 
 func GenerateUUID(length int) string {

@@ -183,7 +183,7 @@ func TestAddSalary(t *testing.T) {
 
 			reqBody, err := json.Marshal(stock)
 
-			req, _ := http.NewRequest(http.MethodPost, "/", bytes.NewReader(reqBody))
+			req, _ := http.NewRequest(http.MethodPost, "/salary", bytes.NewReader(reqBody))
 			req.Header.Add("Content-Type", "application/json")
 			req.Header.Set("Content-Length", strconv.Itoa(len(reqBody)))
 

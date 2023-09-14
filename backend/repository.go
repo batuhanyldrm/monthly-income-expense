@@ -83,6 +83,20 @@ func (repository *Repository) GetSalary(ID string) (models.Salary, error) {
 	return salary, nil
 }
 
+func (repository *Repository) PostSalary(salary models.Salary) error {
+	collection := repository.client.Database("salary").Collection("salary")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	_, err := collection.InsertOne(ctx, salary)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func GetCleanTestRepository() *Repository {
 
 	repository := NewRepository()

@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gofiber/fiber"
+import (
+	"monthly-income-expense/models"
+
+	"github.com/gofiber/fiber"
+)
 
 type Api struct {
 	service *Service
@@ -34,6 +38,25 @@ func (api *Api) GetSalaryHandler(c *fiber.Ctx) {
 	case nil:
 		c.JSON(salary)
 		c.Status(fiber.StatusOK)
+	default:
+		c.Status(fiber.StatusInternalServerError)
+	}
+}
+
+func (api *Api) PostSalaryHandler(c *fiber.Ctx) {
+	createSalary := models.SalaryDTO{}
+	err := c.BodyParser(&createSalary)
+
+	if err != nil {
+		c.Status(fiber.StatusBadRequest)
+	}
+
+	salary := api.service.PostSalary(createSalary)
+
+	switch err {
+	case nil:
+		c.JSON(salary)
+		c.Status(fiber.StatusCreated)
 	default:
 		c.Status(fiber.StatusInternalServerError)
 	}
