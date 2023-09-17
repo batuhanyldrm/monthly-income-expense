@@ -165,7 +165,8 @@ func TestAddSalary(t *testing.T) {
 		service := NewService(repository)
 		api := NewApi(&service)
 
-		stock := models.Salary{
+		salary := models.Salary{
+			//ID:        GenerateUUID(8),
 			Salary:    "1222",
 			Debit:     "122",
 			MoneyGain: "23",
@@ -181,9 +182,9 @@ func TestAddSalary(t *testing.T) {
 
 		Convey("When the post request sent", func() {
 
-			reqBody, err := json.Marshal(stock)
+			reqBody, err := json.Marshal(salary)
 
-			req, _ := http.NewRequest(http.MethodPost, "/salary", bytes.NewReader(reqBody))
+			req, _ := http.NewRequest(http.MethodPost, "/", bytes.NewReader(reqBody))
 			req.Header.Add("Content-Type", "application/json")
 			req.Header.Set("Content-Length", strconv.Itoa(len(reqBody)))
 
@@ -196,13 +197,13 @@ func TestAddSalary(t *testing.T) {
 			})
 
 			Convey("Then added stock should return", func() {
-				actualResult, err := repository.GetSalary(stock.ID)
+				actualResult, err := repository.GetSalary(salary.ID)
 
 				So(err, ShouldBeNil)
 				So(actualResult, ShouldNotBeNil)
-				So(actualResult.Salary, ShouldEqual, stock.Salary)
-				So(actualResult.Debit, ShouldEqual, stock.Debit)
-				So(actualResult.MoneyGain, ShouldEqual, stock.MoneyGain)
+				So(actualResult.Salary, ShouldEqual, salary.Salary)
+				So(actualResult.Debit, ShouldEqual, salary.Debit)
+				So(actualResult.MoneyGain, ShouldEqual, salary.MoneyGain)
 			})
 		})
 	})
