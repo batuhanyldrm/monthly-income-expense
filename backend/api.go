@@ -44,6 +44,7 @@ func (api *Api) GetSalaryHandler(c *fiber.Ctx) {
 }
 
 func (api *Api) PostSalaryHandler(c *fiber.Ctx) {
+
 	createSalary := models.SalaryDTO{}
 	err := c.BodyParser(&createSalary)
 
@@ -57,6 +58,18 @@ func (api *Api) PostSalaryHandler(c *fiber.Ctx) {
 	case nil:
 		c.JSON(salary)
 		c.Status(fiber.StatusCreated)
+	default:
+		c.Status(fiber.StatusInternalServerError)
+	}
+}
+
+func (api *Api) DeleteSalaryHandler(c *fiber.Ctx) {
+	ID := c.Params("id")
+	err := api.service.DeleteSalary(ID)
+
+	switch err {
+	case nil:
+		c.Status(fiber.StatusNoContent)
 	default:
 		c.Status(fiber.StatusInternalServerError)
 	}

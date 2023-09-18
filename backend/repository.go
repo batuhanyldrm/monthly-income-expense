@@ -97,6 +97,21 @@ func (repository *Repository) PostSalary(salary models.Salary) error {
 	return nil
 }
 
+func (repository *Repository) DeleteSalary(ID string) error {
+	collection := repository.client.Database("salary").Collection("salary")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	filter := bson.M{"id": ID}
+
+	_, err := collection.DeleteOne(ctx, filter)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
+}
+
 func GetCleanTestRepository() *Repository {
 
 	repository := NewRepository()

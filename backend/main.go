@@ -35,7 +35,8 @@ func SetupApp(api *Api) *fiber.App {
 
 	app.Get("/salaries", api.GetSalariesHandler)
 	app.Get("/salary/:id", api.GetSalaryHandler)
-	app.Post("salary", api.PostSalaryHandler)
+	app.Post("/salary", api.PostSalaryHandler)
+	app.Delete("/salary/:id", api.DeleteSalaryHandler)
 
 	return app
 }

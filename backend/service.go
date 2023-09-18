@@ -61,6 +61,16 @@ func (service *Service) PostSalary(salaryDTO models.SalaryDTO) *models.Salary {
 	return &salary
 }
 
+func (service *Service) DeleteSalary(ID string) error {
+	err := service.repository.DeleteSalary(ID)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func GenerateUUID(length int) string {
 	uuid := uuid.New().String()
 	uuid = strings.ReplaceAll(uuid, "-", "")
