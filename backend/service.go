@@ -40,6 +40,8 @@ func (service *Service) GetSalary(ID string) (models.Salary, error) {
 }
 
 func (service *Service) PostSalary(salaryDTO models.SalaryDTO) *models.Salary {
+	//users := []models.User{}
+
 	salary := models.Salary{}
 	salary.ID = GenerateUUID(8)
 	salary.Debit = salaryDTO.Debit
@@ -48,6 +50,7 @@ func (service *Service) PostSalary(salaryDTO models.SalaryDTO) *models.Salary {
 	salary.CreatedAt = time.Now().UTC().Round(time.Second)
 	salary.UpdatedAt = time.Now().UTC().Round(time.Second)
 	salary.Users = append(salary.Users, salaryDTO.Users...)
+	//salary.Users = If you can see error in append part you must use command line codes
 
 	err := service.repository.PostSalary(salary)
 	if err != nil {
