@@ -30,7 +30,8 @@ func SetupApp(api *Api) *fiber.App {
 
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
-		AllowOrigins:     []string{"Origin, Content-Type, Accept"},
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowHeaders:     []string{"Origin, Content-Type, Accept"},
 	}))
 
 	app.Get("/salaries", api.GetSalariesHandler)
