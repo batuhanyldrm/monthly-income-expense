@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import configureStore from './reducers/store'
 import { Provider } from 'react-redux';
-import Salary from './Salary';
+import Salary from './components/Salary';
 
 const store = configureStore();
 
