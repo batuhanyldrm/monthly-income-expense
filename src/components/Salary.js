@@ -28,13 +28,13 @@ console.log(salaries, "www")
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {salaries && salaries.map((salary, index) => (
+            {salaries && salaries.map((salary, index) => (
               <SalaryListItem
               salary={salary}
               index={index}
               key={salary.id + "" + index}
               />
-            ))} */}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
