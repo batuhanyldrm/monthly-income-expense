@@ -12,18 +12,18 @@ function Salary(props) {
     fetchSalaries()
   }, []);
   
-console.log(salaries, "www")
   return (
     <div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 5 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="left">Email</TableCell>
               <TableCell>Salary</TableCell>
               <TableCell align="left">Debit</TableCell>
-              <TableCell align="right">Money Gain</TableCell>
-              {/* <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Delete</TableCell>
+              <TableCell align="center">Money Gain</TableCell>
+              {/* <TableCell align="right">Delete</TableCell>
               <TableCell align="right">Edit</TableCell> */}
             </TableRow>
           </TableHead>
