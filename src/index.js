@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import configureStore from './reducers/store'
 import { Provider } from 'react-redux';
-import Salary from './components/Salary';
+import RouterPage from './common/RouterPage';
 
 const store = configureStore();
 
@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Salary />
+      <RouterPage />
     </Provider>
   </React.StrictMode>
 );
