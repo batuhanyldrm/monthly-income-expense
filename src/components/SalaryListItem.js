@@ -1,5 +1,7 @@
 import React from "react";
-import { TableCell, TableRow } from "@material-ui/core";
+import { IconButton, TableCell, TableRow } from "@material-ui/core";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const SalaryListItem = (props) => {
 
@@ -19,21 +21,20 @@ const SalaryListItem = (props) => {
         <TableCell component="th" scope="row" align="left"> {salary.salary}</TableCell>
         <TableCell align="left">{salary.debit}</TableCell>
         <TableCell align="center">{salary.moneyGain}</TableCell>
-        {/* <TableCell align="right">{product.amount}</TableCell>
         <TableCell align="right">
         <IconButton
-        onClick={()=>deleteProduct(product.id)}
+        /* onClick={()=>deleteProduct(product.id)} */
         >
             <DeleteIcon/>
         </IconButton>
         </TableCell>
         <TableCell align="right">
         <IconButton
-        onClick={()=>handleEdit(product.id)}
+        /* onClick={()=>handleEdit(product.id)} */
         >
             <EditIcon/>
         </IconButton>
-        </TableCell> */}
+        </TableCell>
       </TableRow>
       )}
     </>

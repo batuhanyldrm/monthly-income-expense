@@ -23,8 +23,8 @@ function Salary(props) {
               <TableCell>Salary</TableCell>
               <TableCell align="left">Debit</TableCell>
               <TableCell align="center">Money Gain</TableCell>
-              {/* <TableCell align="right">Delete</TableCell>
-              <TableCell align="right">Edit</TableCell> */}
+              <TableCell align="right">Delete</TableCell>
+              <TableCell align="right">Edit</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
